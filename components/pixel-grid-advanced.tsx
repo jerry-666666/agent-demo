@@ -46,7 +46,7 @@ export default function PixelGridAdvanced({
   const [secondColor, setSecondColor] = useState(secondaryColor);
   const [animationType, setAnimationType] = useState<AnimationType>("wave");
   const [isAnimating, setIsAnimating] = useState(true);
-  const frameRef = useRef<number>(null);
+  const frameRef = useRef<number | null>(null);
 
   const drawGrid = useCallback(() => {
     const canvas = canvasRef.current;
@@ -250,7 +250,7 @@ export default function PixelGridAdvanced({
     if (isAnimating) {
       frameRef.current = requestAnimationFrame(drawGrid);
     }
-  }, [width, height, cellSize, colorVariance, baseColor, secondColor, animationType, isAnimating]);
+  }, [width, height, cellSize, colorVariance, baseColor, secondColor, animationType, isAnimating, frameRef]);
 
   useEffect(() => {
     const savedState = localStorage.getItem("pixelGridState");
