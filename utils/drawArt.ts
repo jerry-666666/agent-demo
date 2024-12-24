@@ -39,8 +39,8 @@ export const drawPixelArt = (
   };
 
   const drawVerticalArt = () => {
-    let cols = Math.floor(ctx.canvas.width / pixelSize);
-    let rows = Math.floor(ctx.canvas.height / pixelSize);
+    const cols = Math.floor(ctx.canvas.width / pixelSize);
+    const rows = Math.floor(ctx.canvas.height / pixelSize);
     const totalWidth = cols * pixelSize;
     const offset = (time * 50) % totalWidth;
     
@@ -56,7 +56,7 @@ export const drawPixelArt = (
         const cy = row * pixelSize;
         
         if (!initialColors[i][row]) {
-          let colorIndex = (col + 1) % colors.length;
+          const colorIndex = (col + 1) % colors.length;
           if ((Math.floor((col + 1) / colors.length)) % 2) {
             initialColors[i][row] = colors[colors.length - 1 - colorIndex];
           } else {
@@ -82,8 +82,8 @@ export const drawPixelArt = (
   };
   
   const drawRowArt = () => {
-    let cols = Math.floor(ctx.canvas.width / pixelSize);
-    let rows = Math.floor(ctx.canvas.height / pixelSize);
+    const cols = Math.floor(ctx.canvas.width / pixelSize);
+    const rows = Math.floor(ctx.canvas.height / pixelSize);
     const totalHeight = rows * pixelSize;
     const offset = (time * 50) % totalHeight;
     
@@ -99,7 +99,7 @@ export const drawPixelArt = (
         const cy = (row * pixelSize - offset + totalHeight * 2) % totalHeight;
         
         if (!initialColors[i][col]) {
-          let colorIndex = Math.abs(i % colors.length);
+          const colorIndex = Math.abs(i % colors.length);
           if ((Math.floor(Math.abs(i) / colors.length)) % 2) {
             initialColors[i][col] = colors[colors.length - 1 - colorIndex];
           } else {
@@ -124,40 +124,41 @@ export const drawPixelArt = (
     }
   };
   
+
   
   
   const drawDiamondArt = () => {
-    let rows = 3;
-    let cols = 3;
+    const rows = 3;
+    const cols = 3;
     const offset = (Math.sin(time) * 50);
     drawMultipleDiamonds(rows, cols, size, colors, pixelSize, offset);
   };
 
   const drawMultipleDiamonds = (rows: number, cols: number, size: number, colorPalette: Color[], pixelSize: number, offset: number) => {
-    let spacing = size * 0.9;
+    const spacing = size * 0.9;
     const centerX = ctx.canvas.width / 2;
     const centerY = ctx.canvas.height / 2;
     for (let row = 0; row < rows; row++) {
       for (let col = 0; col < cols; col++) {
-        let x = centerX + (col - 1) * spacing + offset;
-        let y = centerY + (row - 1) * spacing + offset;
+        const x = centerX + (col - 1) * spacing + offset;
+        const y = centerY + (row - 1) * spacing + offset;
         drawDiamond(x, y, size, colorPalette, pixelSize);
       }
     }
   };
 
   const drawDiamond = (x: number, y: number, size: number, colorPalette: Color[], pixelSize: number) => {
-    let halfSize = size / 2;
-    let outerHalfSize = halfSize + pixelSize;
+    const halfSize = size / 2;
+    const outerHalfSize = halfSize + pixelSize;
     
     let _alpha = Math.random() * (255 - alpha) + alpha;
     for (let i = -outerHalfSize; i < outerHalfSize; i += pixelSize) {
       for (let j = -outerHalfSize; j < outerHalfSize; j += pixelSize) {
         if (Math.abs(i) + Math.abs(j) <= outerHalfSize) {
-          let distance = Math.abs(i) + Math.abs(j);
+          const distance = Math.abs(i) + Math.abs(j);
           if (distance <= outerHalfSize) {
-            let colorIndex = Math.floor((distance / outerHalfSize) * (colorPalette.length - 1));
-            let [r, g, b] = colorPalette[colorIndex];
+            const colorIndex = Math.floor((distance / outerHalfSize) * (colorPalette.length - 1));
+            const [r, g, b] = colorPalette[colorIndex];
             ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${alpha / 255})`;
             ctx.fillRect(x + i, y + j, pixelSize, pixelSize);
           }
@@ -176,8 +177,8 @@ export const drawPixelArt = (
               _alpha = Math.random() * (255 - alpha) + alpha;
             } 
             distance = Math.max(distance - 30, 0);
-            let colorIndex = Math.floor((distance / halfSize) * (colorPalette.length - 1));
-            let [r, g, b] = colorPalette[colorIndex];
+            const colorIndex = Math.floor((distance / halfSize) * (colorPalette.length - 1));
+            const [r, g, b] = colorPalette[colorIndex];
             
             ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${_alpha / 255})`;
             ctx.fillRect(x + i, y + j, pixelSize, pixelSize);
@@ -188,37 +189,37 @@ export const drawPixelArt = (
   };
 
   const drawCircleArt = () => {
-    let rows = 3;
-    let cols = 3;
+    const rows = 3;
+    const cols = 3;
     const offset = (Math.sin(time) * 50);
     drawMultipleCircles(rows, cols, size, colors, pixelSize, offset);
   };
 
   const drawMultipleCircles = (rows: number, cols: number, size: number, colorPalette: Color[], pixelSize: number, offset: number) => {
-    let spacing = size * 1;
+    const spacing = size * 1;
     const centerX = ctx.canvas.width / 2;
     const centerY = ctx.canvas.height / 2;
     for (let row = 0; row < rows; row++) {
       for (let col = 0; col < cols; col++) {
-        let x = centerX + (col - 1) * spacing + offset;
-        let y = centerY + (row - 1) * spacing + offset;
+        const x = centerX + (col - 1) * spacing + offset;
+        const y = centerY + (row - 1) * spacing + offset;
         drawCircle(x, y, size, colorPalette, pixelSize);
       }
     }
   };
 
   const drawCircle = (x: number, y: number, size: number, colorPalette: Color[], pixelSize: number) => {
-    let halfSize = size / 2;
-    let outerHalfSize = halfSize + pixelSize;
+    const halfSize = size / 2;
+    const outerHalfSize = halfSize + pixelSize;
     
     let _alpha = Math.random() * (255 - alpha) + alpha;
     
     for (let i = -outerHalfSize; i < outerHalfSize; i += pixelSize) {
       for (let j = -outerHalfSize; j < outerHalfSize; j += pixelSize) {
-        let distance = Math.sqrt(i * i + j * j);
+        const distance = Math.sqrt(i * i + j * j);
         if (distance <= outerHalfSize) {
-          let colorIndex = Math.floor((distance / outerHalfSize) * (colorPalette.length - 1));
-          let [r, g, b] = colorPalette[colorIndex];
+          const colorIndex = Math.floor((distance / outerHalfSize) * (colorPalette.length - 1));
+          const [r, g, b] = colorPalette[colorIndex];
           ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${_alpha / 255})`;
           ctx.fillRect(x + i, y + j, pixelSize, pixelSize);
         }
@@ -235,8 +236,8 @@ export const drawPixelArt = (
           }
           
           distance = Math.max(distance - 30, 0);
-          let colorIndex = Math.floor((distance / halfSize) * (colorPalette.length - 1));
-          let [r, g, b] = colorPalette[colorIndex];
+          const colorIndex = Math.floor((distance / halfSize) * (colorPalette.length - 1));
+          const [r, g, b] = colorPalette[colorIndex];
           
           ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${_alpha / 255})`;
           ctx.fillRect(x + i, y + j, pixelSize, pixelSize);
@@ -246,37 +247,37 @@ export const drawPixelArt = (
   };
 
   const drawSquareArt = () => {
-    let rows = 3;
-    let cols = 3;
+    const rows = 3;
+    const cols = 3;
     const offset = (Math.sin(time) * 50);
     drawMultipleSquares(rows, cols, size, colors, pixelSize, offset);
   };
 
   const drawMultipleSquares = (rows: number, cols: number, size: number, colorPalette: Color[], pixelSize: number, offset: number) => {
-    let spacing = size * 1;
+    const spacing = size * 1;
     const centerX = ctx.canvas.width / 2;
     const centerY = ctx.canvas.height / 2;
     for (let row = 0; row < rows; row++) {
       for (let col = 0; col < cols; col++) {
-        let x = centerX + (col - 1) * spacing + offset;
-        let y = centerY + (row - 1) * spacing + offset;
+        const x = centerX + (col - 1) * spacing + offset;
+        const y = centerY + (row - 1) * spacing + offset;
         drawSquare(x, y, size, colorPalette, pixelSize);
       }
     }
   };
 
   const drawSquare = (x: number, y: number, size: number, colorPalette: Color[], pixelSize: number) => {
-    let halfSize = size / 2;
-    let outerHalfSize = halfSize + pixelSize;
+    const halfSize = size / 2;
+    const outerHalfSize = halfSize + pixelSize;
     
     let _alpha = Math.random() * (155) + 100;
     
     for (let i = -outerHalfSize; i < outerHalfSize; i += pixelSize) {
       for (let j = -outerHalfSize; j < outerHalfSize; j += pixelSize) {
         if (isInSquare(i, j, halfSize)) {
-          let distance = Math.max(Math.abs(i), Math.abs(j));
-          let colorIndex = Math.floor((distance / outerHalfSize) * (colorPalette.length - 1));
-          let [r, g, b] = colorPalette[colorIndex];
+          const distance = Math.max(Math.abs(i), Math.abs(j));
+          const colorIndex = Math.floor((distance / outerHalfSize) * (colorPalette.length - 1));
+          const [r, g, b] = colorPalette[colorIndex];
 
           ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${_alpha / 255})`;
           ctx.fillRect(x + i, y + j, pixelSize, pixelSize);
@@ -292,9 +293,9 @@ export const drawPixelArt = (
             _alpha = Math.random() * (155) + 100;
           }
           
-          let distance = Math.max(Math.abs(i), Math.abs(j));
-          let colorIndex = Math.floor((distance / halfSize) * (colorPalette.length - 1));
-          let [r, g, b] = colorPalette[colorIndex];
+          const distance = Math.max(Math.abs(i), Math.abs(j));
+          const colorIndex = Math.floor((distance / halfSize) * (colorPalette.length - 1));
+          const [r, g, b] = colorPalette[colorIndex];
           
           ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${_alpha / 255})`;
           ctx.fillRect(x + i, y + j, pixelSize, pixelSize);
